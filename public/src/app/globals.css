@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-sans), sans-serif;
+}
+
+html {
+  @apply antialiased;
+
+  --design-patter-bgm: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 66 66' fill='none'%3E%3Crect x='1' y='1' width='64' height='64' rx='4' fill='%23E7E7E7'/%3E%3C/svg%3E");
+}
+html.dark {
+  --design-patter-bgm: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 66 66' fill='none'%3E%3Crect x='1' y='1' width='64' height='64' rx='4' fill='%2312191F'/%3E%3C/svg%3E");
+}
+
+body {
+  @apply bg-background;
+
+  @apply font-sans;
+  font-weight: normal;
+  letter-spacing: -0.435px;
+  line-height: 1;
+  @apply text-brand-50;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+@layer components {
+  *,
+  ::before,
+  ::after {
+    --tw-ring-color: theme("colors.foreground/0.25");
+    @apply border-neutral-300;
+
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  article * {
+    user-select: text;
+    -ms-user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -webkit-tap-highlight-color: white;
+  }
+
+  .animated-link {
+    overflow: hidden;
+    .text-wrapper {
+      position: relative;
+      display: inline-block;
+
+      .text,
+      .text-clone {
+        transition: 0.35s transform cubic-bezier(0.4, 0, 0.1, 1);
+      }
+      .text {
+        display: block;
+      }
+
+      .text-clone {
+        position: absolute;
+        top: 0;
+        transform: translate3d(0, 100%, 0);
+      }
+    }
+    .arrow-wrapper {
+      position: relative;
+      display: inline-block;
+
+      .arrow1,
+      .arrow2 {
+        transition: 0.35s transform cubic-bezier(0.4, 0, 0.1, 1);
+      }
+
+      .arrow1 {
+        transform: translateZ(0);
+      }
+
+      .arrow2 {
+        transform: translate3d(-1.2em, 1.8em, 0);
+      }
+    }
+
+    &:hover {
+      .arrow-wrapper .arrow1 {
+        transform: translate3d(1.2em, -1.8em, 0);
+      }
+
+      .arrow-wrapper .arrow2 {
+        transform: translateZ(0);
+      }
+
+      .text-wrapper .text {
+        transform: translate3d(0, -100%, 0);
+      }
+
+      .text-wrapper .text-clone {
+        transform: translateZ(0);
+      }
+    }
+  }
+
+  .cursor {
+    -webkit-backdrop-filter: invert(1) grayscale(1);
+    backdrop-filter: invert(1) grayscale(1);
+  }
+}
+
+.dark {
+  .hero-design {
+    background: hsl(206, 23%, 11%);
+  }
+}
+
+.main {
+  /* perspective: 1000px; */
+  overflow: hidden;
+
+  /* .hero-text {
+    p {
+      position: relative;
+      overflow: hidden;
+
+      .word {
+        position: absolute;
+      }
+    }
+  } */
+}
+
+.design-wrapper > *:not(.hero-design):not(header) {
+  z-index: 10;
+  position: relative;
+}
+
+.hero-design {
+  background: #e4e4e4;
+  overflow: hidden;
+  z-index: 0;
+}
+.hero-design-pattern {
+  background-image: var(--design-patter-bgm);
+}
+
+.hero-design-cursor {
+  will-change: transform;
+  transition: 0.75s theme("transitionTimingFunction.out-quad");
+  transition-property: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+.showcase {
+  width: 100%;
+
+  .showcase-image {
+    height: clamp(18rem, 22vw, 54rem);
+  }
+}
+
+#header {
+  --shadow-size: 80px;
+  &::before {
+    --blur-size: 80px;
+
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: calc(10px * -1);
+
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+
+    mask: linear-gradient(to top, transparent 0%, black var(--blur-size) calc(100% - var(--blur-size)));
+    -webkit-mask: linear-gradient(to top, transparent 0%, black var(--blur-size) calc(100% - var(--blur-size)));
+
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+  }
+  &::after {
+    --blur-size: 40px;
+
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: calc(10px * -1);
+
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+
+    mask: linear-gradient(to top, transparent 0%, black var(--blur-size) calc(100%));
+    -webkit-mask: linear-gradient(to top, transparent 0%, black var(--blur-size) calc(100%));
+
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+  }
+}
+
+::selection {
+  background-color: theme("colors.blue.500");
+  color: theme("colors.white");
+}
+.dark {
+  ::selection {
+    background-color: theme("colors.blue.600");
+    color: theme("colors.white");
+  }
+}
+
+/* FAQ Section Styling */
+.faq-details summary {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-details[open] summary {
+  border-bottom: 1px solid rgba(75, 85, 99, 0.5);
+  margin-bottom: 0;
+}
+
+.faq-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-details .faq-content {
+  max-height: 0;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+.faq-details[open] .faq-content {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.faq-details .faq-icon {
+  transform: rotate(0deg);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s ease,
+              color 0.3s ease;
+}
+
+.faq-details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-details summary:hover .faq-icon {
+  transform: scale(1.1);
+}
+
+@layer components {
+  .text-gradient {
+    background: linear-gradient(to right bottom, theme("colors.brand.900") 15%, theme("colors.brand.700") 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .dark {
+    .text-gradient {
+      background: linear-gradient(to right bottom, theme("colors.brand.200") 15%, theme("colors.brand.100") 50%, theme("colors.highlight.400"));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+}
+
+/* Map optimizations for fast loading */
+#map {
+  transition: opacity 0.3s ease-in-out;
+}
+
+#map.leaflet-container {
+  background: #0f172a !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.leaflet-popup-tip {
+  background: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Custom marker animations */
+.leaflet-marker-icon {
+  transition: transform 0.2s ease-in-out !important;
+}
+
+.leaflet-marker-icon:hover {
+  transform: scale(1.1) !important;
+  z-index: 1000 !important;
+}
