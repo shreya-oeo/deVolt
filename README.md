@@ -1,4 +1,4 @@
-[# ⚡ DeVolt - Next-Generation Decentralized EV Charging Network
+# ⚡ DeVolt - Next-Generation Decentralized EV Charging Network
 
 <div align="center">
 
